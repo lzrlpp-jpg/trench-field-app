@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#153b35">
+  <meta name="description" content="离线探槽野外编录与工程量计算工具">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <title>探槽野外编录</title>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">野</span><div><strong>探槽野外编录</strong><small>FIELD RECORD · OFFLINE</small></div></div>
+    <button id="installBtn" class="button ghost" hidden>安装到手机</button>
+  </header>
+  <main>
+    <section class="hero">
+      <div><p class="eyebrow">工程工作台</p><h1>把现场数据记清楚</h1><p class="subhead">测点、地层、样品与工程量集中记录。无网络时也能使用。</p></div>
+      <div class="status"><span class="status-dot"></span><span id="saveStatus">本机自动保存</span></div>
+    </section>
+    <nav class="tabs" aria-label="功能导航">
+      <button class="tab active" data-view="overview">工程概况</button><button class="tab" data-view="stations">导尺测点</button><button class="tab" data-view="layers">分层与描述</button><button class="tab" data-view="samples">刻槽样品</button><button class="tab" data-view="export">导出与备份</button>
+    </nav>
+    <section id="overview" class="view active">
+      <div class="section-heading"><div><p class="eyebrow">01 / 工程信息</p><h2>探槽基本资料</h2></div><div class="button-row"><select id="projectSelect" aria-label="切换工程"></select><button id="newProject" class="button secondary">新建工程</button></div></div>
+      <div class="card form-grid">
+        <label>矿区名称<input data-project="district" placeholder="例如：新希望矿区"></label>
+        <label>工程编号<input data-project="id" placeholder="例如：CYPM15-1"></label>
+        <label>工程类型<select data-project="type"><option>探槽</option><option>采样剖面</option><option>其他</option></select></label>
+        <label>工程总体方位（°）<input data-project="azimuth" type="number" step="0.1" inputmode="decimal" placeholder="0–360"></label>
+        <label>施工开始日期<input data-project="startDate" type="date"></label>
+        <label>施工结束日期<input data-project="endDate" type="date"></label>
+        <label>编录日期<input data-project="recordDate" type="date"></label>
+        <label>编录人<input data-project="recorder" placeholder="姓名"></label>
+        <label>采样日期<input data-project="sampleDate" type="date"></label>
+        <label>采样人<input data-project="sampler" placeholder="姓名"></label>
+        <label class="span-2">施工情况<textarea data-project="workNote" rows="2" placeholder="施工方式、地表及露头情况"></textarea></label>
+        <label class="span-2">备注<textarea data-project="notes" rows="2" placeholder="其他现场说明"></textarea></label>
+      </div>
+      <div class="section-heading metrics-title"><div><p class="eyebrow">自动汇总</p><h2>工程量概览</h2></div><span class="muted">随测点和样品记录更新</span></div>
+      <div class="metrics">
+        <article class="metric"><span>平均槽深</span><strong id="mDepth">—</strong><small>地表至槽底 · m</small></article>
+        <article class="metric"><span>平均上口宽</span><strong id="mTop">—</strong><small>测点平均值 · m</small></article>
+        <article class="metric"><span>平均底宽</span><strong id="mBottom">—</strong><small>测点平均值 · m</small></article>
+        <article class="metric accent"><span>编录米数</span><strong id="mLength">—</strong><small>各段导尺斜距累计 · m</small></article>
+        <article class="metric"><span>刻槽样长度</span><strong id="mSample">—</strong><small>样品区间长度合计 · m</small></article>
+        <article class="metric accent"><span>探槽方量</span><strong id="mVolume">—</strong><small>断面平均法估算 · m³</small></article>
+      </div>
+      <div class="notice"><strong>计算口径</strong><p>各测点的垂向深度＝导尺至地表读数−导尺至槽底读数。方量按断面梯形面积（上口宽＋底宽）×深度÷2，乘相邻测点间的水平投影距离后累加。若未录入坡度，水平投影暂按斜距处理。样品长度按样品终点里程−起点里程计算。</p></div>
+      <div class="card"><div class="card-head"><div><h3>现场记录完整度</h3><p class="muted">提交前核对测点、分层和样品信息</p></div><span id="completeness" class="pill">待填写</span></div><div class="progress"><i id="progressBar"></i></div><div id="nextSteps" class="checklist"></div></div>
+    </section>
+    <section id="stations" class="view">
+      <div class="section-heading"><div><p class="eyebrow">02 / 基点基线与断面</p><h2>导尺测点</h2><p class="muted">每个测点记录同一导尺基准至地表、基岩和槽底的读数。</p></div><button id="addStation" class="button primary">＋ 添加测点</button></div>
+      <div class="notice compact"><strong>读数提示</strong><p>三个读数应使用同一单位和同一导尺基准。填写相邻测点间斜距和坡度角，方量会以坡度角换算区段水平距离。方位角、坐标及高程保留为测量数据。</p></div>
+      <div id="stationList" class="record-list"></div>
+    </section>
+    <section id="layers" class="view">
+      <div class="section-heading"><div><p class="eyebrow">03 / 原始地质记录</p><h2>分层与地质描述</h2><p class="muted">位置按导尺里程记录；按现场观察填写岩性、构造和地质现象。</p></div><button id="addLayer" class="button primary">＋ 添加分层</button></div>
+      <div id="layerList" class="record-list"></div>
+    </section>
+    <section id="samples" class="view">
+      <div class="section-heading"><div><p class="eyebrow">04 / 采样登记</p><h2>刻槽样品</h2><p class="muted">记录样品编号、采样位置、刻槽规格与长度。</p></div><button id="addSample" class="button primary">＋ 添加样品</button></div>
+      <div class="notice compact"><strong>采样提醒</strong><p>规程要求样品位置和代号标注在现场并与原始记录对应；刻槽规格应按矿种、矿化均匀程度及项目设计确定。应用不替代现场质量检查。</p></div>
+      <div id="sampleList" class="record-list"></div>
+    </section>
+    <section id="export" class="view">
+      <div class="section-heading"><div><p class="eyebrow">05 / 文件输出</p><h2>导出与备份</h2><p class="muted">导出的数字字段为数值型，工程编号、样品编号、坐标编号等保留为文本。</p></div></div>
+      <div class="export-grid">
+        <article class="export-card"><span class="export-icon">W</span><h3>Word 原始记录</h3><p>生成可编辑的工程信息、测点、分层和样品登记表。</p><button id="exportDocx" class="button primary">导出 Word</button></article>
+        <article class="export-card"><span class="export-icon">P</span><h3>PDF 现场记录</h3><p>按打印版式排版，可在打印窗口选择“保存为 PDF”。</p><button id="exportPdf" class="button primary">生成 PDF</button></article>
+        <article class="export-card"><span class="export-icon">X</span><h3>Excel 工程数据</h3><p>数值与日期按 Excel 数据类型导出；编号及代号为文本，便于排序、计算和筛选。</p><button id="exportXlsx" class="button primary">导出 Excel</button></article>
+        <article class="export-card"><span class="export-icon">↕</span><h3>本机备份</h3><p>导出或恢复 JSON 备份。工程数据保存在此设备的浏览器中。</p><div class="button-row"><button id="backupJson" class="button secondary">下载备份</button><label class="button secondary file-button">恢复备份<input id="restoreJson" type="file" accept="application/json"></label></div></article>
+      </div>
+      <div class="notice"><strong>数据与隐私</strong><p>记录保存在当前设备和浏览器本地，不会自动上传。清理浏览器数据或更换设备前，请下载 JSON 备份。浏览器首次安装 PWA 时需要 HTTPS 或本机服务地址；安装后可离线录入和导出。</p></div>
+    </section>
+  </main>
+  <footer><span>探槽野外编录</span><span>数据保存在本机 · 请定期备份</span></footer>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
+
