@@ -20,7 +20,7 @@
       <div class="status"><span class="status-dot"></span><span id="saveStatus">本机自动保存</span></div>
     </section>
     <nav class="tabs" aria-label="功能导航">
-      <button class="tab active" data-view="overview">工程概况</button><button class="tab" data-view="stations">导尺测点</button><button class="tab" data-view="layers">分层与描述</button><button class="tab" data-view="samples">刻槽样品</button><button class="tab" data-view="export">导出与备份</button>
+      <button class="tab active" data-view="overview">工程概况</button><button class="tab" data-view="staffs">导尺数据</button><button class="tab" data-view="layers">分层与描述</button><button class="tab" data-view="samples">刻槽样品</button><button class="tab" data-view="export">导出与备份</button>
     </nav>
     <section id="overview" class="view active">
       <div class="section-heading"><div><p class="eyebrow">01 / 工程信息</p><h2>探槽基本资料</h2></div><div class="button-row"><select id="projectSelect" aria-label="切换工程"></select><button id="newProject" class="button secondary">新建工程</button></div></div>
@@ -50,10 +50,10 @@
       <div class="notice"><strong>计算口径</strong><p>各测点的垂向深度＝导尺至地表读数−导尺至槽底读数。方量按断面梯形面积（上口宽＋底宽）×深度÷2，乘相邻测点间的水平投影距离后累加。若未录入坡度，水平投影暂按斜距处理。样品长度按样品终点里程−起点里程计算。</p></div>
       <div class="card"><div class="card-head"><div><h3>现场记录完整度</h3><p class="muted">提交前核对测点、分层和样品信息</p></div><span id="completeness" class="pill">待填写</span></div><div class="progress"><i id="progressBar"></i></div><div id="nextSteps" class="checklist"></div></div>
     </section>
-    <section id="stations" class="view">
-      <div class="section-heading"><div><p class="eyebrow">02 / 基点基线与断面</p><h2>导尺测点</h2><p class="muted">每个测点记录同一导尺基准至地表、基岩和槽底的读数。</p></div><button id="addStation" class="button primary">＋ 添加测点</button></div>
-      <div class="notice compact"><strong>读数提示</strong><p>三个读数应使用同一单位和同一导尺基准。填写相邻测点间斜距和坡度角，方量会以坡度角换算区段水平距离。方位角、坐标及高程保留为测量数据。</p></div>
-      <div id="stationList" class="record-list"></div>
+    <section id="staffs" class="view">
+      <div class="section-heading"><div><p class="eyebrow">02 / 基点基线与断面</p><h2>导尺数据</h2><p class="muted">导尺段记录斜距、方位、坡度和端点坐标。每条导尺段可关联多个槽型测点。</p></div><button id="addStaff" class="button primary">＋ 添加导尺数据</button></div>
+      <div class="notice compact"><strong>数据关系</strong><p>导尺数据是一条基线段；槽型测点是该导尺段上的断面观测，需填写测点在本导尺段内的位置。导尺斜距只按导尺段累计一次，不会因该段下有多个槽型测点而重复累加。</p></div>
+      <div id="staffList" class="record-list"></div>
     </section>
     <section id="layers" class="view">
       <div class="section-heading"><div><p class="eyebrow">03 / 原始地质记录</p><h2>分层与地质描述</h2><p class="muted">位置按导尺里程记录；按现场观察填写岩性、构造和地质现象。</p></div><button id="addLayer" class="button primary">＋ 添加分层</button></div>
