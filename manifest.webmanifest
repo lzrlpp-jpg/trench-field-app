@@ -1,0 +1,12 @@
+{
+  "name": "探槽野外编录",
+  "short_name": "探槽编录",
+  "description": "离线探槽测点、分层、样品记录与工程量计算",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f5f1",
+  "theme_color": "#153b35",
+  "lang": "zh-CN",
+  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}
+
