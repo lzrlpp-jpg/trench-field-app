@@ -12,7 +12,7 @@
 <body>
   <header class="topbar">
     <div class="brand"><span class="brand-mark">野</span><div><strong>探槽野外编录</strong><small>FIELD RECORD · OFFLINE</small></div></div>
-    <button id="installBtn" class="button ghost" hidden>安装到手机</button>
+    <button id="installBtn" class="button ghost">安装到手机</button>
   </header>
   <main>
     <section class="hero">
@@ -61,14 +61,14 @@
     </section>
     <section id="samples" class="view">
       <div class="section-heading"><div><p class="eyebrow">04 / 采样登记</p><h2>刻槽样品</h2><p class="muted">记录样品编号、采样位置、刻槽规格与长度。</p></div><button id="addSample" class="button primary">＋ 添加样品</button></div>
-      <div class="notice compact"><strong>采样提醒</strong><p>规程要求样品位置和代号标注在现场并与原始记录对应；刻槽规格应按矿种、矿化均匀程度及项目设计确定。应用不替代现场质量检查。</p></div>
+      <div class="notice compact"><strong>采样提醒</strong><p>规程要求样品位置和代号标注在现场并与原始记录对应；刻槽规格应按矿种、矿化均匀程度及项目设计确定。应用不替代现场质量检查。可拍照或从相册添加照片，并给照片命名；默认名称自动带样品编号。</p></div>
       <div id="sampleList" class="record-list"></div>
     </section>
     <section id="export" class="view">
       <div class="section-heading"><div><p class="eyebrow">05 / 文件输出</p><h2>导出与备份</h2><p class="muted">导出的数字字段为数值型，工程编号、样品编号、坐标编号等保留为文本。</p></div></div>
       <div class="export-grid">
-        <article class="export-card"><span class="export-icon">W</span><h3>Word 原始记录</h3><p>生成可编辑的工程信息、测点、分层和样品登记表。</p><button id="exportDocx" class="button primary">导出 Word</button></article>
-        <article class="export-card"><span class="export-icon">P</span><h3>PDF 现场记录</h3><p>按打印版式排版，可在打印窗口选择“保存为 PDF”。</p><button id="exportPdf" class="button primary">生成 PDF</button></article>
+        <article class="export-card"><span class="export-icon">W</span><h3>Word 原始记录</h3><p>按 CYPM15-1 工程地质记录表、工程采样及分析结果登记表字段自动填充，附样品照片目录。</p><button id="exportDocx" class="button primary">导出 Word</button></article>
+        <article class="export-card"><span class="export-icon">P</span><h3>PDF 现场记录</h3><p>按 CYPM15-1 表格字段排版并附样品照片，可在打印窗口选择“保存为 PDF”。</p><button id="exportPdf" class="button primary">生成 PDF</button></article>
         <article class="export-card"><span class="export-icon">X</span><h3>Excel 工程数据</h3><p>数值与日期按 Excel 数据类型导出；编号及代号为文本，便于排序、计算和筛选。</p><button id="exportXlsx" class="button primary">导出 Excel</button></article>
         <article class="export-card"><span class="export-icon">↕</span><h3>本机备份</h3><p>导出或恢复 JSON 备份。工程数据保存在此设备的浏览器中。</p><div class="button-row"><button id="backupJson" class="button secondary">下载备份</button><label class="button secondary file-button">恢复备份<input id="restoreJson" type="file" accept="application/json"></label></div></article>
       </div>
@@ -77,7 +77,7 @@
   </main>
   <footer><span>探槽野外编录</span><span>数据保存在本机 · 请定期备份</span></footer>
   <div id="toast" class="toast" role="status"></div>
+  <dialog id="installGuide" class="install-guide"><div class="card-head"><h3>安装到手机主屏幕</h3><button id="closeInstallGuide" class="delete">关闭</button></div><div class="install-copy"><p><b>Android（Chrome / Edge）</b><br>点击“安装应用”；若未弹出安装框，打开浏览器右上角菜单，选择“安装应用”或“添加到主屏幕”。</p><p><b>iPhone / iPad（Safari）</b><br>点击 Safari 底部“分享”按钮，再选“添加到主屏幕”，最后点击“添加”。iOS 不支持网页自动弹出安装框，需要手动添加。</p><p class="muted">安装只创建主屏幕入口。工程记录和照片仍保存在本机浏览器中，请定期导出备份。</p></div></dialog>
   <script src="app.js"></script>
 </body>
 </html>
-
